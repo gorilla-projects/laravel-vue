@@ -1,8 +1,9 @@
 <template>
     <div>
-        <h1>{{ title }}</h1>
+        <h1 :style="'color: ' + color">{{ title }}</h1>
         <img :src="images[imageIndex]" alt="plaatje" width="300">
         <button class="btn btn-dark" @click="changeImage">Change image</button>
+        <button class="btn btn-primary" @click="getImages">Get Images</button>
     </div>
 </template>
 
@@ -11,18 +12,17 @@
 export default {
     props: {
         title: {
-            required: false,
-            default: 'Coffee'
-        }
+            required: true,
+            default: 'Coffee',
+        },
+
+        color: '',
+        name: '',
     },
 
     data() {
         return {
-            images: [
-                'images/coffee.jpg',
-                'images/coffee2.jpg',
-                'images/berries.jpg',
-            ],
+            images: [],
             imageIndex: 0,
         }
     },
@@ -37,7 +37,26 @@ export default {
             }
 
             this.imageFile = this.images[this.imageIndex];
-        }
+        },
+
+        getImages() {
+            let self = this;
+
+            axios({
+                method: 'POST',
+                url: '/',
+                data: {
+                    surprise: true,
+                    list: [
+                        'a', 'b', 'c',
+                    ],
+                }
+            }).then(function(response) {
+                self.images = response.data.images;
+            }).catch(function(error) {
+                console.log(error);
+            });
+        },
     }
 }
 

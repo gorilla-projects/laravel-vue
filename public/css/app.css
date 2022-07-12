@@ -10256,10 +10256,14 @@ button {
   background-color: green;
 }
 
+.header-top {
+  background-color: aqua;
+}
+
 .abc {
   color: white;
 }
 
-.header-top {
-  background-color: aqua;
+.diba-purple {
+  color: rgb(221, 68, 221);
 }
